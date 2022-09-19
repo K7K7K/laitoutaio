@@ -1,31 +1,26 @@
 <template>
-    <li
-      ref="cardBox"
-      class="itemwrap"
-      :key="item._id"
-      @click="toindex(item)"
-      :style="{
-        height : height ? height + 'px' : 'auto'
-      }"
-    >
-      <div :class="isShow ? '' : 'noneShow'">
-        <h3 class="max-p">{{ item.title }}</h3>
-        <div v-if="item.imageSrc.length" class="pc1fu">
-          <img :class="['topc1', `imgcount${item.imageSrc.length}`]" alt="" v-for="(img, i) in item.imageSrc" v-lazy="img" :key="i" />
-        </div>
-        <div class="getBottom_v">
-          <span class="max-p">{{ item.author }}</span>
-          <span>{{ item.comment }}评论</span>
-        </div>
+  <li ref="cardBox" class="itemwrap" :key="item._id" @click="toindex(item)" :style="{
+    height : height ? height + 'px' : 'auto'
+  }">
+    <div :class="isShow ? '' : 'noneShow'">
+      <h3 class="max-p">{{ item.title }}</h3>
+      <div v-if="item.imageSrc.length" class="pc1fu">
+        <img :class="['topc1', `imgcount${item.imageSrc.length}`]" alt="" v-for="(img, i) in item.imageSrc" v-lazy="img"
+          :key="i" />
       </div>
-    </li>
+      <div class="getBottom_v">
+        <span class="max-p">{{ item.author }}</span>
+        <span>{{ item.comment }}评论</span>
+      </div>
+    </div>
+  </li>
 </template>
 
 <script>
 
 export default {
   props: {
-    item: {type: [Object]},
+    item: { type: [Object] },
   },
   data() {
     return {
@@ -52,7 +47,7 @@ export default {
   mounted() {
     this.io && this.io.observe(this.$refs.cardBox)
   },
-  beforeDestroy () {
+  beforeDestroy() {
     this.io && this.io.disconnect()
   },
   methods: {
@@ -62,11 +57,11 @@ export default {
         name: "artdet",
         query: {
           article_id: item._id,
-          user_id: item.author_id2,
+          user_id: item.author_id,
         },
       });
     },
-    },
+  },
 
 };
 </script>
@@ -78,30 +73,37 @@ export default {
   background-color: #fff;
   margin: 15px 10px 10px 10px;
   overflow: hidden;
-  .noneShow{
+
+  .noneShow {
     display: none;
   }
+
   .max-p {
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      word-break: break-all;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
   }
+
   .pc1fu {
     display: flex;
     align-items: center;
     justify-content: space-around;
   }
+
   .getBottom_v {
     margin: 7px 0;
   }
-  .imgcount1{
+
+  .imgcount1 {
     width: 100%;
   }
-  .imgcount2{
+
+  .imgcount2 {
     width: 40%;
   }
-  .imgcount3{
+
+  .imgcount3 {
     width: 30%;
   }
 }
