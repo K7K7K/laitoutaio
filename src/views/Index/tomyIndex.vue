@@ -9,20 +9,10 @@
         <van-tab v-for="item in list" :key="item._id" :title="item.name"> </van-tab>
       </van-tabs>
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-        <van-list
-          v-model="loading"
-          :finished="finished"
-          :immediate-check="false"
-          finished-text="没有更多了"
-          @load="getArtList"
-          style="padding: 95px 0"
-        >
+        <van-list v-model="loading" :finished="finished" :immediate-check="false" finished-text="没有更多了"
+          @load="getArtList" style="padding: 95px 0">
           <ul class="artget">
-            <CardItem
-              v-for="(item, iv) in lists"
-              :key="iv._id"
-              :item="item"
-            />
+            <CardItem v-for="(item, iv) in lists" :key="iv._id" :item="item" />
           </ul>
         </van-list>
       </van-pull-refresh>
@@ -173,6 +163,7 @@ export default {
 body {
   background-color: #f5f7f9;
 }
+
 .search {
   width: 100%;
   height: 50px;
@@ -182,6 +173,7 @@ body {
   background-color: #000;
   z-index: 999;
 }
+
 .fix1 {
   width: 100%;
   height: 40px;
@@ -190,6 +182,7 @@ body {
   left: 0;
   z-index: 999;
 }
+
 .v-grid {
   width: 100%;
   height: 100px;
@@ -205,6 +198,7 @@ body {
   opacity: 0.5;
   border-radius: 50%;
 }
+
 .toicon1 {
   margin: 5px 0 0 7px;
 }
