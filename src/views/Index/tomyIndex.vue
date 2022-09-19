@@ -17,28 +17,13 @@
           @load="getArtList"
           style="padding: 95px 0"
         >
-          <div class="artget">
-            <ul
+          <ul class="artget">
+            <CardItem
               v-for="(item, iv) in lists"
-              :class="[item.imageSrc.length == 1 ? 'tomyone_v' : item.imageSrc.length == 0 ? 'tomyson' : 'tomytow']"
               :key="iv._id"
-              @click="toindex(item, iv)"
-            >
-              <!-- 标题 -->
-              <h3 class="max-p">{{ item.title }}</h3>
-              <!-- <p>{{ item.author }}</p> -->
-              <div class="pc1fu">
-                <!-- <img class="topc1" alt="" :src="img" v-for="(img, i) in item.imageSrc" :key="i" /> -->
-                <!-- 图片懒加载 -->
-                <img class="topc1" alt="" v-for="(img, i) in item.imageSrc" v-lazy="img" :key="i" />
-                <!-- <div class="content" v-if="item.imageSrc.length == 0"> </div> -->
-              </div>
-              <div class="getBottom_v">
-                <span class="max-p">{{ item.author }}</span>
-                <span>{{ item.comment }}评论</span>
-              </div>
-            </ul>
-          </div>
+              :item="item"
+            />
+          </ul>
         </van-list>
       </van-pull-refresh>
     </div>
@@ -50,7 +35,7 @@
 
 <script>
 import { getCateList, GetArtList } from "@/api/home";
-
+import CardItem from '@/components/cardItem.vue'
 import {
   Search,
   Tabbar,
@@ -68,6 +53,7 @@ import {
 
 export default {
   components: {
+    CardItem,
     [Search.name]: Search,
     [Tabbar.name]: Tabbar,
     [TabbarItem.name]: TabbarItem,
@@ -88,7 +74,6 @@ export default {
       item: 1,
       list: [],
       lists: [],
-      // awais: [],
       stry: "",
       article_id: "",
       user_id: "",
@@ -98,10 +83,6 @@ export default {
       skip: 0,
       limit: 10,
       isLoading: false,
-      img: [],
-      a1: [],
-      show5: false,
-      show6: false,
     };
   },
 
@@ -176,17 +157,6 @@ export default {
         //没有 loading = false
       });
     },
-    //跳文章详情
-    toindex(item, iv) {
-      console.log(this.lists[iv]._id);
-      this.$router.push({
-        name: "artdet",
-        query: {
-          article_id: this.lists[iv]._id,
-          user_id: this.lists[iv].author_id2,
-        },
-      });
-    },
     //回到顶部
     goToTop() {
       document.body.scrollTop = 0;
@@ -237,91 +207,5 @@ body {
 }
 .toicon1 {
   margin: 5px 0 0 7px;
-}
-.getBottom_v {
-  margin: 7px 0;
-}
-.tomyone_v {
-  width: 100%;
-  height: 350px;
-  overflow: hidden;
-  background-color: #fff;
-  margin-bottom: 10px;
-  .max-p {
-    margin: 15px 10px 10px 10px;
-    // display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    //强制英文单词换行 数字
-    word-break: break-all;
-  }
-  .pc1fu {
-    width: 100%;
-    height: 70%;
-    img {
-      width: 100%;
-      height: 100%;
-      // max-height: 100%;
-      object-fit: cover;
-    }
-  }
-}
-.tomytow {
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-  background-color: #fff;
-  margin-bottom: 10px;
-
-  .max-p {
-    margin: 15px 10px 10px 10px;
-    // display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    //强制英文单词换行 数字
-    word-break: break-all;
-  }
-  .pc1fu {
-    width: 100%;
-    height: 90px;
-    display: flex;
-    justify-content: space-around;
-    img {
-      width: 30%;
-      height: 100%;
-    }
-  }
-}
-.tomyson {
-  width: 100%;
-  height: 100px;
-  overflow: hidden;
-  background-color: #fff;
-  margin-bottom: 10px;
-
-  .max-p {
-    margin: 15px 10px 10px 10px;
-    // display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    //强制英文单词换行 数字
-    word-break: break-all;
-  }
-  .pc1fu {
-    width: 100%;
-    // height: 46%;
-    display: flex;
-    justify-content: space-around;
-    img {
-      width: 30%;
-      // height: 100%;
-    }
-  }
 }
 </style>
