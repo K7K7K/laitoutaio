@@ -9,22 +9,14 @@
         <van-tab v-for="item in list" :key="item._id" :title="item.name"> </van-tab>
       </van-tabs>
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-        <van-list
-          v-model="loading"
-          :finished="finished"
-          :immediate-check="false"
-          finished-text="没有更多了"
-          @load="getArtList"
-          style="padding: 95px 0"
-        >
+        <van-list v-model="loading" :finished="finished" :immediate-check="false" finished-text="没有更多了"
+          @load="getArtList" style="padding: 95px 0">
           <div class="artget">
-            <ul
-              v-for="(item, iv) in lists"
+            <ul v-for="(item, iv) in lists"
               :class="[item.imageSrc.length == 1 ? 'tomyone_v' : item.imageSrc.length == 0 ? 'tomyson' : 'tomytow']"
-              :key="iv._id"
-              @click="toindex(item, iv)"
-            >
+              :key="iv._id" @click="toindex(item, iv)">
               <!-- 标题 -->
+              <div>aaaaa</div>
               <h3 class="max-p">{{ item.title }}</h3>
               <!-- <p>{{ item.author }}</p> -->
               <div class="pc1fu">
@@ -203,6 +195,7 @@ export default {
 body {
   background-color: #f5f7f9;
 }
+
 .search {
   width: 100%;
   height: 50px;
@@ -212,6 +205,7 @@ body {
   background-color: #000;
   z-index: 999;
 }
+
 .fix1 {
   width: 100%;
   height: 40px;
@@ -220,6 +214,7 @@ body {
   left: 0;
   z-index: 999;
 }
+
 .v-grid {
   width: 100%;
   height: 100px;
@@ -235,18 +230,22 @@ body {
   opacity: 0.5;
   border-radius: 50%;
 }
+
 .toicon1 {
   margin: 5px 0 0 7px;
 }
+
 .getBottom_v {
   margin: 7px 0;
 }
+
 .tomyone_v {
   width: 100%;
   height: 350px;
   overflow: hidden;
   background-color: #fff;
   margin-bottom: 10px;
+
   .max-p {
     margin: 15px 10px 10px 10px;
     // display: -webkit-box;
@@ -257,9 +256,11 @@ body {
     //强制英文单词换行 数字
     word-break: break-all;
   }
+
   .pc1fu {
     width: 100%;
     height: 70%;
+
     img {
       width: 100%;
       height: 100%;
@@ -268,6 +269,7 @@ body {
     }
   }
 }
+
 .tomytow {
   width: 100%;
   height: 200px;
@@ -285,17 +287,20 @@ body {
     //强制英文单词换行 数字
     word-break: break-all;
   }
+
   .pc1fu {
     width: 100%;
     height: 90px;
     display: flex;
     justify-content: space-around;
+
     img {
       width: 30%;
       height: 100%;
     }
   }
 }
+
 .tomyson {
   width: 100%;
   height: 100px;
@@ -313,11 +318,13 @@ body {
     //强制英文单词换行 数字
     word-break: break-all;
   }
+
   .pc1fu {
     width: 100%;
     // height: 46%;
     display: flex;
     justify-content: space-around;
+
     img {
       width: 30%;
       // height: 100%;
